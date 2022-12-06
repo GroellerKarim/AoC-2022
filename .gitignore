@@ -1,0 +1,5 @@
+ownership
+
+.idea/
+**/target
+**/.env
