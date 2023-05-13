@@ -20,30 +20,6 @@ fn main() {
     }
 }
 
-pub fn highest_elf(elf_vec: &Vec<i32>) -> String {
-    // Get the elf with the highest calories
-    let mut highest_elf = 0;
-
-    for elf in elf_vec {
-        if elf > &highest_elf {
-            highest_elf = *elf;
-        }
-    }
-
-    return format!("Highest Elf -> {}", highest_elf);
-}
-
-pub fn top_three_elves(elf_vec: &mut Vec<i32>) -> String {
-    if elf_vec.len() < 3 {
-        return "There are less than 3 elves on this journey".to_string();
-    }
-
-    elf_vec.sort_by(|a, b| b.cmp(a));
-
-    let total_calories = elf_vec.index(0) + elf_vec.index(1) + elf_vec.index(2);
-    return total_calories.to_string();
-}
-
 pub fn calorie_counting(lines: Lines<BufReader<File>>) -> Result<Vec<i32>, String> {
     let mut elf_vec: Vec<i32> = Vec::new();
     let mut calories = 0;
@@ -75,6 +51,31 @@ pub fn calorie_counting(lines: Lines<BufReader<File>>) -> Result<Vec<i32>, Strin
 
     Ok(elf_vec)
 }
+
+pub fn highest_elf(elf_vec: &Vec<i32>) -> String {
+    // Get the elf with the highest calories
+    let mut highest_elf = 0;
+
+    for elf in elf_vec {
+        if elf > &highest_elf {
+            highest_elf = *elf;
+        }
+    }
+
+    return format!("Highest Elf -> {}", highest_elf);
+}
+
+pub fn top_three_elves(elf_vec: &mut Vec<i32>) -> String {
+    if elf_vec.len() < 3 {
+        return "There are less than 3 elves on this journey".to_string();
+    }
+
+    elf_vec.sort_by(|a, b| b.cmp(a));
+
+    let total_calories = elf_vec.index(0) + elf_vec.index(1) + elf_vec.index(2);
+    return total_calories.to_string();
+}
+
 
 pub struct Elf {
     pub calories: i32,
