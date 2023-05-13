@@ -1,6 +1,6 @@
 pub struct Round {
-    opponent: char,
-    myself: char,
+    pub(crate) opponent: char,
+    pub(crate) myself: char,
 }
 
 // A = Rock, B = Paper, C = Scissors
