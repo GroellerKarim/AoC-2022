@@ -3,7 +3,6 @@ mod round;
 use std::{
     fs::File,
     io::{self, BufRead, BufReader, Lines},
-    ops::Index,
     path::Path,
 };
 use crate::round::Round;
