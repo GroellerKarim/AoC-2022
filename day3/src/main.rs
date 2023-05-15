@@ -1,23 +1,47 @@
 use std::{
     fs::File,
     io::{self, BufRead},
-    path::Path,
+    path::Path, vec, collections::HashSet,
 };
 
 fn main() {
 
     if let Ok(lines) = read_lines("./input.txt") {
         let mut priority_count = 0;
+
+        // Part 2
+        let mut priority_count_part2 = 0;
+        let mut three_group_elves_lines: Vec<String> = vec![];
         
         for line_result in lines {
             if let Ok(line) = line_result {
-                priority_count += calculate_line(line);
+                priority_count += calculate_line(line.clone());
+
+                three_group_elves_lines.push(line.clone());
+                if three_group_elves_lines.len() == 3 {
+                    priority_count_part2 += calculate_group(three_group_elves_lines);
+
+                    // Reset the items in group
+                    three_group_elves_lines = vec![];
+                }
             }
         }
 
         println!("{}", priority_count);
+        println!("Part2 {}", priority_count_part2);
     }
 
+}
+
+fn calculate_group(groups: Vec<String>) -> u32 {
+    let group1: HashSet<char> = groups[0].chars().collect();
+    let group2: HashSet<char>= groups[1].chars().collect();
+    let group3: HashSet<char> = groups[2].chars().collect();
+
+    let common: HashSet<char> = group1.intersection(&group2).cloned().collect();
+    let common: HashSet<char> = common.intersection(&group3).cloned().collect();
+
+    return calculate_priority(*common.iter().next().unwrap());
 }
 
 fn calculate_line(line: String) -> u32 {
@@ -38,12 +62,13 @@ fn calculate_line(line: String) -> u32 {
         }
     }
 
-    let num: u32 = 31; 
-    let mut priority: u32 = (last_char as u32) & num;
+    return calculate_priority(last_char);
+}
 
-    if last_char.is_uppercase() { priority += 26 }
-
-    println!("priority for char {} is {}", last_char, priority);
+fn calculate_priority(char: char) -> u32 {
+    let mut priority: u32 = (char as u32) & 31;
+    if char.is_uppercase() { priority += 26 }
+    println!("priority for char {} is {}", char, priority);
     return priority;
 }
 
