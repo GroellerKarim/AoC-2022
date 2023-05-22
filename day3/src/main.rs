@@ -19,7 +19,7 @@ fn main() {
 
                 three_group_elves_lines.push(line.clone());
                 if three_group_elves_lines.len() == 3 {
-                    priority_count_part2 += calculate_group(three_group_elves_lines);
+                    priority_count_part2 = calculate_group(three_group_elves_lines);
 
                     // Reset the items in group
                     three_group_elves_lines = vec![];
